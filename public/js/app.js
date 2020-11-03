@@ -1944,6 +1944,16 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {
@@ -1951,28 +1961,29 @@ __webpack_require__.r(__webpack_exports__);
   },
   data: function data() {
     return {
-      count: 0,
-      bookable1: {
+      loading: false,
+      bookables: [{
+        id: 1,
         title: "Cheap Villa 1 dinamik",
         content: "A very cheap villa 1 dinamik",
         price: 1000
-      },
-      bookable2: {
+      }, {
+        id: 2,
         title: "Cheap Villa 2! dinamik",
         content: "A very cheap villa 2! dinamik",
         price: 900
-      }
+      }]
     };
   },
   created: function created() {
     var _this = this;
 
     console.log('hello world');
-    console.log(this.bookable1);
+    this.loading = true;
     setTimeout(function () {
       console.log("time has come");
-      _this.bookable1.title = "time has come";
-    }, 5000);
+      _this.loading = false;
+    }, 3000);
   }
 });
 
@@ -37662,27 +37673,24 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c(
-    "div",
-    [
-      _c("bookable-list-item", {
-        attrs: {
-          "item-title": _vm.bookable1.title,
-          "item-content": _vm.bookable1.content,
-          price: _vm.bookable1.price
-        }
-      }),
-      _vm._v(" "),
-      _c("bookable-list-item", {
-        attrs: {
-          "item-title": _vm.bookable2.title,
-          "item-content": _vm.bookable2.content,
-          price: _vm.bookable2.price
-        }
-      })
-    ],
-    1
-  )
+  return _c("div", [
+    _vm.loading
+      ? _c("div", [_vm._v("\n        Data is loading...\n    ")])
+      : _c(
+          "div",
+          _vm._l(_vm.bookables, function(bookable, index) {
+            return _c("bookable-list-item", {
+              key: index,
+              attrs: {
+                "item-title": bookable.title,
+                "item-content": bookable.content,
+                price: bookable.price
+              }
+            })
+          }),
+          1
+        )
+  ])
 }
 var staticRenderFns = []
 render._withStripped = true
