@@ -2014,10 +2014,22 @@ __webpack_require__.r(__webpack_exports__);
 
     console.log('hello world');
     this.loading = true;
-    setTimeout(function () {
-      console.log("time has come");
+    var p = new Promise(function (resolve, reject) {
+      setTimeout(function () {
+        return resolve("Hello Promise");
+      }, 3000);
+    });
+    p.then(function (result) {
+      return console.log(result);
+    });
+    var request = axios.get('/api/bookables');
+    request.then(function (response) {
+      console.log(response.data);
+      _this.bookables = response.data;
+    });
+    request["finally"](function () {
       _this.loading = false;
-    }, 1000);
+    });
   }
 });
 
@@ -37679,7 +37691,7 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "card" }, [
+  return _c("div", { staticClass: "card w-100" }, [
     _c("div", { staticClass: "card-body" }, [
       _c("h5", { staticClass: "card-title" }, [
         _vm._v("\n            " + _vm._s(_vm.itemTitle) + "\n        ")
@@ -37726,13 +37738,16 @@ var render = function() {
                 _vm._l(_vm.bookablesInRow(row), function(bookable, index) {
                   return _c(
                     "div",
-                    { key: "row" + row + index, staticClass: "col" },
+                    {
+                      key: "row" + row + index,
+                      staticClass: "col d-flex aling-items-stretch"
+                    },
                     [
                       _c("bookable-list-item", {
                         key: index,
                         attrs: {
                           "item-title": bookable.title,
-                          "item-content": bookable.content,
+                          "item-content": bookable.description,
                           price: bookable.price
                         }
                       })

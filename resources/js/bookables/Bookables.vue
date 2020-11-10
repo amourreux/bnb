@@ -5,12 +5,12 @@
         </div>
         <div v-else>
             <div class="row mb-4" v-for="row in rows" :key="'row' + row">
-                <div class="col" v-for="(bookable, index) in bookablesInRow(row)"
+                <div class="col d-flex aling-items-stretch" v-for="(bookable, index) in bookablesInRow(row)"
                  :key="'row' + row + index">
                     <bookable-list-item
                         :key="index"
                         :item-title="bookable.title"
-                        :item-content = "bookable.content"
+                        :item-content = "bookable.description"
                         :price="bookable.price">
                     </bookable-list-item>
                 </div>
@@ -71,11 +71,19 @@ export default {
         console.log('hello world');
         this.loading = true;
 
-        setTimeout( () => {
-            console.log("time has come");
-            this.loading=false;
-        },1000);
-    },
+        const p = new Promise( (resolve, reject) => {
+            setTimeout( () => resolve("Hello Promise"), 3000 );
+        });
+        p.then(result => console.log(result));
 
+        const request = axios.get('/api/bookables');
+        request.then( response => {
+           console.log(response.data); 
+           this.bookables = response.data;
+        });
+        request.finally( () => {
+            this.loading=false;
+        });
+    },
 }
 </script>
