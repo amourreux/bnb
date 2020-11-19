@@ -30,7 +30,7 @@ export default {
         request.then(
             responce => {
                 console.log(responce.data);
-                this.bookable = responce.data;
+                this.bookable = responce.data.data;
                 this.loading = false;
             }
         );
