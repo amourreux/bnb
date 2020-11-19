@@ -8,10 +8,7 @@
                 <div class="col d-flex aling-items-stretch" v-for="(bookable, index) in bookablesInRow(row)"
                  :key="'row' + row + index">
                     <bookable-list-item
-                        :key="index"
-                        :item-title="bookable.title"
-                        :item-content = "bookable.description"
-                        :price="bookable.price">
+                        v-bind="bookable">
                     </bookable-list-item>
                 </div>
                 <div class="col" v-for="(placeholder, index) in placeholdersInRows(row)" :key="'placeholder' + row + index">
