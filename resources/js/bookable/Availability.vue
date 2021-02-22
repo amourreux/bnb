@@ -6,15 +6,17 @@
         <div class="form-row">
                 <div class="form-group col-md-6">
                     <label for="from">From</label>
-                    <input type="text" name="from" class="form-control form-control-sm" placeholder="Start Date" v-model="from">
+                    <input type="text" name="from" class="form-control form-control-sm" placeholder="Start Date" v-model="from"
+                    @keyup.enter="check">
                 </div>
                 <div class="form-group col-md-6">
                     <label for="to">To</label>
-                    <input type="text" name="to" class="form-control form-control-sm" placeholder="End Date" v-model="to">
+                    <input type="text" name="to" class="form-control form-control-sm" placeholder="End Date" v-model="to"
+                    @keyup.enter="check">
                 </div>
         </div>
 
-        <button class="btn btn-secondary btn-block">Check!</button>
+        <button class="btn btn-secondary btn-block" @click="check">Check!</button>
     </div>
 </template>
 
@@ -25,6 +27,11 @@ export default {
             from: null,
             to: null
         };
+    },
+    methods : {
+        check() {
+            alert("I will check something now!");
+        }
     }
 }
 </script>
