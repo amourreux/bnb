@@ -36,7 +36,7 @@ class BookableFactory extends Factory
         ];
 
         $dude = Arr::random($suffix);
-        //Log::info($dude);
+        Log::info($dude);
 
         return [
             //

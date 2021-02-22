@@ -9,8 +9,8 @@ class Bookable extends Model
 {
     use HasFactory;
 
-    public function booking(){
+    public function bookings(){
         return $this->hasMany(Booking::class);
     }
-    
+
 }

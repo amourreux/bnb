@@ -17,5 +17,6 @@ class DatabaseSeeder extends Seeder
         // \App\Models\User::factory(10)->create();
         Bookable::factory()->times(50)->create();
         //$this->call(BookablesTableSeeder::class);
+        $this->call(BookingsTableSeeder::class);
     }
 }
