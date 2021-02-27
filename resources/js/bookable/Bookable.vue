@@ -35,8 +35,6 @@ export default {
     },
     created() {
         this.loading = true;
-        console.log("loging...");
-        console.log(this.$route.params.id);
         const request = axios.get(`/api/bookables/${this.$route.params.id}`);
         request.then(
             responce => {
