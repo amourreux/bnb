@@ -18,5 +18,7 @@ class DatabaseSeeder extends Seeder
         Bookable::factory()->times(50)->create();
         //$this->call(BookablesTableSeeder::class);
         $this->call(BookingsTableSeeder::class);
+        $this->call(ReviewsTableSeeder::class);
+        
     }
 }
