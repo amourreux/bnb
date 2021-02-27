@@ -60380,7 +60380,12 @@ var render = function() {
                 _c(
                   "div",
                   { staticClass: "col-md-6 d-flex justify-content-end" },
-                  [_c("star-rating", { attrs: { rating: review.rating } })],
+                  [
+                    _c("star-rating", {
+                      staticClass: "fa-lg",
+                      attrs: { rating: review.rating }
+                    })
+                  ],
                   1
                 )
               ]),

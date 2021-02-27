@@ -11,7 +11,7 @@
             <div class="row pt-4">
                 <div class="col-md-6">Joe Doe</div>
                 <div class="col-md-6 d-flex justify-content-end">
-                    <star-rating :rating="review.rating"></star-rating>
+                    <star-rating class="fa-lg" :rating="review.rating"></star-rating>
                 </div>
             </div>
             <div class="row">
