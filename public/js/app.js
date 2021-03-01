@@ -2373,18 +2373,18 @@ __webpack_require__.r(__webpack_exports__);
 //
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: {
-    rating: Number
+    value: Number
   },
   computed: {
     halfStar: function halfStar() {
-      var fraction = Math.round(this.rating - Math.floor(this.rating) * 100);
+      var fraction = Math.round(this.value - Math.floor(this.value) * 100);
       return fraction > 0 && fraction < 50;
     },
     fullStars: function fullStars() {
-      return Math.round(this.rating);
+      return Math.round(this.value);
     },
     emptyStarts: function emptyStarts() {
-      return 5 - Math.ceil(this.rating);
+      return 5 - Math.ceil(this.value);
     }
   },
   created: function created() {}
@@ -60434,7 +60434,7 @@ var render = function() {
                   [
                     _c("star-rating", {
                       staticClass: "fa-lg",
-                      attrs: { rating: review.rating }
+                      attrs: { value: review.rating }
                     })
                   ],
                   1
@@ -60659,11 +60659,12 @@ var render = function() {
         _vm._v(" "),
         _c("star-rating", {
           staticClass: "fa-3x",
-          attrs: { rating: _vm.review.rating },
-          on: {
-            "rating:changed": function($event) {
-              _vm.review.rating = $event
-            }
+          model: {
+            value: _vm.review.rating,
+            callback: function($$v) {
+              _vm.$set(_vm.review, "rating", $$v)
+            },
+            expression: "review.rating"
           }
         })
       ],
@@ -60725,7 +60726,7 @@ var render = function() {
           staticClass: "fas fa-star",
           on: {
             click: function($event) {
-              return _vm.$emit("rating:changed", star)
+              return _vm.$emit("input", star)
             }
           }
         })
@@ -60741,7 +60742,7 @@ var render = function() {
           staticClass: "far fa-star",
           on: {
             click: function($event) {
-              return _vm.$emit("rating:changed", _vm.fullStars + star)
+              return _vm.$emit("input", _vm.fullStars + star)
             }
           }
         })
