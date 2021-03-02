@@ -2336,12 +2336,8 @@ __webpack_require__.r(__webpack_exports__);
         content: null
       }
     };
-  } // methods: {
-  //     onRatingChanged(rating){
-  //         console.log(rating);
-  //     }
-  // }
-
+  },
+  created: function created() {}
 });
 
 /***/ }),
@@ -60671,30 +60667,40 @@ var render = function() {
       1
     ),
     _vm._v(" "),
-    _vm._m(0),
+    _c("div", { staticClass: "form-group" }, [
+      _c("label", { staticClass: "text-muted", attrs: { for: "content" } }, [
+        _vm._v("Describe your experience with")
+      ]),
+      _vm._v(" "),
+      _c("textarea", {
+        directives: [
+          {
+            name: "model",
+            rawName: "v-model",
+            value: _vm.revıew.content,
+            expression: "revıew.content"
+          }
+        ],
+        staticClass: "form-control",
+        attrs: { name: "content", cols: "30", rows: "10" },
+        domProps: { value: _vm.revıew.content },
+        on: {
+          input: function($event) {
+            if ($event.target.composing) {
+              return
+            }
+            _vm.$set(_vm.revıew, "content", $event.target.value)
+          }
+        }
+      })
+    ]),
     _vm._v(" "),
     _c("button", { staticClass: "btn-lg btn-primary btn-block" }, [
       _vm._v("\n        Submit\n    ")
     ])
   ])
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "form-group" }, [
-      _c("label", { staticClass: "text-muted", attrs: { for: "content" } }, [
-        _vm._v("Describe your experience with")
-      ]),
-      _vm._v(" "),
-      _c("textarea", {
-        staticClass: "form-control",
-        attrs: { name: "content", cols: "30", rows: "10" }
-      })
-    ])
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 
 
