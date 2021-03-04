@@ -28,7 +28,7 @@ class AddReviewKeyToBookingsTable extends Migration
     {
         Schema::table('bookings', function (Blueprint $table) {
             //
-            $table->dropColumn('review_key')
+            $table->dropColumn('review_key');
         });
     }
 }

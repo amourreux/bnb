@@ -53,9 +53,16 @@ export default {
             .get(`/api/get/reviews/${this.$route.params.id}`)
             .then(response => (this.existingReview = response.data.data))
             .catch((err => {
-                
+                if (err.responce && err.responce.status && 404 === err.response.status){
+                    return axios.get(`/api/booking-by-review/${$this.$route.params.id}`)
+                    .then(response => {
+                        this.booking = response.data.data;
+                    })
+                }
             }))
-            .then(() => (this.loading = false));
+            .then( ()=> {
+                this.loading = false
+            });
     },
     computed: {
         alreadyReviewd() {
