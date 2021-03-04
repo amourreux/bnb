@@ -2377,7 +2377,7 @@ __webpack_require__.r(__webpack_exports__);
     });
   },
   computed: {
-    alreadyReviewd: function alreadyReviewd() {
+    alreadyReviewed: function alreadyReviewed() {
       return this.existingReview !== null;
     }
   }

@@ -65,7 +65,7 @@ export default {
             });
     },
     computed: {
-        alreadyReviewd() {
+        alreadyReviewed() {
             return this.existingReview !== null;
         }
     }
