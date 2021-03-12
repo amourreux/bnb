@@ -26,12 +26,7 @@
                     </div>
                 </div>
             </div>
-            <div
-                :class="[
-                    { 'col-md-8': twoColumns },
-                    { 'col-md-12': oneColumn }
-                ]"
-            >
+            <div :class="[ { 'col-md-8': twoColumns },{ 'col-md-12': oneColumn }]">
                 <div v-if="loading">Loading...</div>
                 <div v-else>
                     <div v-if="alreadyReviewed">
@@ -60,7 +55,7 @@
                                 v-model="review.content"
                             ></textarea>
                         </div>
-                        <button class="btn-lg btn-primary btn-block">
+                        <button class="btn-lg btn-primary btn-block" @click.prevent="submit" :disabled="loading">
                             Submit
                         </button>
                     </div>
@@ -78,6 +73,7 @@ export default {
         return {
             booking: null,
             review: {
+                id: null,
                 rating: 5,
                 content: null
             },
@@ -87,15 +83,16 @@ export default {
         };
     },
     created() {
+        this.review.id = this.$route.params.id;
         this.loading = true;
         axios
-            .get(`/api/reviews/${this.$route.params.id}`)
+            .get(`/api/reviews/${this.review.id}`)
             .then(response => (this.existingReview = response.data.data))
             .catch(err => {
                 console.log(err);
                 if (is404(err)) {
                     return axios
-                        .get(`/api/booking-by-review/${this.$route.params.id}`)
+                        .get(`/api/booking-by-review/${this.review.id}`)
                         .then(response => {
                             //console.log(response);
                             this.booking = response.data.data;
@@ -125,7 +122,22 @@ export default {
             return !this.loading && this.alreadyReviewed;
         },
         twoColumns() {
-            return this.loading && !this.alreadyReviewed;
+            return this.loading || !this.alreadyReviewed;
+        }
+    },
+    methods: {
+        submit() {
+            this.loading = true;
+            axios.post(`/api/reviews`, this.review)
+            .then(response => {
+                console.log(response);
+            })
+            .catch(err => {
+                this.error = true;
+            })
+            .then(() => {
+                this.loading = false;
+            });
         }
     }
 };
