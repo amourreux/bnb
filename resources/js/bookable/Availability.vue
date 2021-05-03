@@ -35,8 +35,10 @@
 
 <script>
 import { is422 } from "./../shared/utils/response";
+import validationErrors from "./../shared/mixins/validationErrors";
 
 export default {
+    mixins: [validationErrors],
     props: {
         bookableId: String,
     },
@@ -46,13 +48,11 @@ export default {
             to: null,
             loading: false,
             status: null,
-            errors: null
         };
     },
     methods : {
         check() {
             this.loading = true;
-            this.errors = null;
             axios.get(`/api/bookables/${this.bookableId}/availability?from=${this.from}&to=${this.to}`).then(response => {
                 this.status = response.status;
             }).catch(error => {
@@ -61,9 +61,6 @@ export default {
                 }
                 this.status = error.response.status;
             }).then(() => this.loading = false);
-        },
-        errorFor(field) {
-            return this.hasErrors && this.errors[field] ? this.errors[field] : null;
         }
     },
     computed: {
