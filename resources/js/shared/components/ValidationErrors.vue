@@ -17,7 +17,7 @@ export default {
     ],
     methods: {
         key(index) {
-            return `validation_error_${index}${Math.random()}`;
+            return `validation_error_${index}_${Math.random()}`;
         }
     }
 }
