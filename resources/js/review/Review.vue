@@ -96,31 +96,47 @@ export default {
             sending: null
         };
     },
-    created() {
+    async created() {
         this.review.id = this.$route.params.id;
         this.loading = true;
-        axios
-            .get(`/api/reviews/${this.review.id}`)
-            .then(response => (this.existingReview = response.data.data))
-            .catch(err => {
-                console.log(err);
-                if (is404(err)) {
-                    return axios
-                        .get(`/api/booking-by-review/${this.review.id}`)
-                        .then(response => {
-                            //console.log(response);
-                            this.booking = response.data.data;
-                        })
-                        .catch(err => {
-                            this.error = !is404(err);
-                        });
-                }
 
+        try {
+            this.existingReview = (await axios.get(`/api/reviews/${this.review.id}`)).data.data;
+        } catch (err) {
+            if (is404(err)) {
+                try {
+                    this.booking =  (await axios.get(`/api/booking-by-review/${this.review.id}`)).data.data;
+                } catch (err) {
+                    this.error = !is404(err);
+                }
+            }else{
                 this.error = true;
-            })
-            .then(() => {
-                this.loading = false;
-            });
+            }
+        }
+        this.loading = false;
+
+        // axios
+        //     .get(`/api/reviews/${this.review.id}`)
+        //     .then(response => (this.existingReview = response.data.data))
+        //     .catch(err => {
+        //         console.log(err);
+        //         if (is404(err)) {
+        //             return axios
+        //                 .get(`/api/booking-by-review/${this.review.id}`)
+        //                 .then(response => {
+        //                     //console.log(response);
+        //                     this.booking = response.data.data;
+        //                 })
+        //                 .catch(err => {
+        //                     this.error = !is404(err);
+        //                 });
+        //         }
+
+        //         this.error = true;
+        //     })
+        //     .then(() => {
+        //         this.loading = false;
+        //     });
     },
     computed: {
         alreadyReviewed() {
