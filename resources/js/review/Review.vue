@@ -1,7 +1,10 @@
 <template>
     <div>
+        <success v-if="success">
+            You've left a review, thank you very much!
+        </success>
         <fatal-error v-if="error"></fatal-error>
-        <div v-else class="row">
+        <div v-if="!success && !error" class="row">
             <div :class="[{ 'col-md-4': twoColumns }, { 'd-none': oneColumn }]">
                 <div class="card">
                     <div class="card-body">
@@ -79,21 +82,24 @@
 <script>
 import { is404, is422 } from "./../shared/utils/response";
 import validationErrors from "./../shared/mixins/validationErrors";
+import Success from '../shared/components/Success.vue';
 
 export default {
+  components: { Success },
     mixins: [validationErrors],
     data() {
         return {
-            booking: null,
             review: {
                 id: null,
                 rating: 5,
                 content: null
             },
             existingReview: null,
+            booking: null,
             loading: false,
             error: false,
-            sending: null
+            sending: null,
+            success: false
         };
     },
     async created() {
@@ -159,10 +165,14 @@ export default {
         submit() {
             this.errors = null;
             this.sending = true;
+            this.success = false;
+
             axios
                 .post(`/api/reviews`, this.review)
                 .then(response => {
                     console.log(response);
+                    this.success = 201 === response.status;
+
                 })
                 .catch(err => {
                     if (is422(err)) {
