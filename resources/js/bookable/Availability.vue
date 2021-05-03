@@ -14,16 +14,19 @@
                     placeholder="Start Date" 
                     v-model="from"
                     @keyup.enter="check"
-                    :class="[{'is-invalid' : this.errorFor('from') }]">
-                    <div class="invalid-feedback" v-for="(error,index) in this.errorFor('from')" :key="'from' + index">{{error}}</div>
+                    :class="[{'is-invalid' : errorFor('from') }]">
+                    
+                    <v-errors :errors="this.errorFor('from')"></v-errors>
                 </div>
                 <div class="form-group col-md-6">
                     <label for="to">To</label>
                     <input type="text" name="to" class="form-control form-control-sm" placeholder="End Date" v-model="to"
                     @keyup.enter="check"
                     :class="[{'is-invalid' : this.errorFor('to')}]">
-                    <div class="invalid-feedback" v-for="(error,index) in this.errorFor('to')" :key="'to' + index">{{error}}</div>
+                    
+                    <v-errors :errors="errorFor('to')"></v-errors>
                 </div>
+                
         </div>
 
         <button class="btn btn-secondary btn-block" @click="check" :disabled="loading">Check!</button>
@@ -53,7 +56,7 @@ export default {
             axios.get(`/api/bookables/${this.bookableId}/availability?from=${this.from}&to=${this.to}`).then(response => {
                 this.status = response.status;
             }).catch(error => {
-                if(is422(err)){
+                if(is422(error)){
                     this.errors = error.response.data.errors;
                 }
                 this.status = error.response.status;
