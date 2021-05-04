@@ -10,6 +10,7 @@ import FatalError from "./shared/components/FatalError";
 import Success from "./shared/components/Success";
 import ValidationErrors from "./shared/components/ValidationErrors";
 import Vue from "vue";
+import storeDefination from "./store";
 
 window.Vue = require('vue');
 Vue.use(VueRouter);
@@ -21,9 +22,12 @@ Vue.component("fatal-error", FatalError);
 Vue.component("success", Success);
 Vue.component("v-errors", ValidationErrors);
 
+const store = new Vuex.Store(storeDefination);
+
 const app = new Vue({
     el: '#app',
     router,
+    store,
     components: {
         "index": index
     }
