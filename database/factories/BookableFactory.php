@@ -41,7 +41,8 @@ class BookableFactory extends Factory
         return [
             //
             'title' => $this->faker->city.' '.$dude,
-            'description' => $this->faker->text()
+            'description' => $this->faker->text(),
+            'price' => floatval(random_int(1500,60000) / 100),
         ];
     }
 }
