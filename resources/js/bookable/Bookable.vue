@@ -18,20 +18,25 @@
 
         </div>
         <div class="col-md-4 pb-4">
-            <Availability :bookable-id="this.$route.params.id">
-            </Availability>
+            <availability :bookable-id="this.$route.params.id" @availability="checkPrice($event)">
+            </availability>
         </div>
     </div>
 </template>
 
 <script>
-import Availability from "./Availability";
+import availability from "./Availability";
 import ReviewList from "./ReviewList";
 
 export default {
     components: {
-        Availability,
+        availability,
         ReviewList
+    },
+    methods: {
+        checkPrice(event){
+            console.log(event);
+        }
     },
     created() {
         this.loading = true;

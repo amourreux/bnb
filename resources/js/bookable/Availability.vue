@@ -82,7 +82,10 @@ export default {
                     }
                     this.status = error.response.status;
                 })
-                .then(() =>  (this.loading = false));
+                .then(() =>  {
+                    (this.loading = false);
+                    this.$emit('availability', this.hasAvailability);
+                });
         }
     },
     computed: {
