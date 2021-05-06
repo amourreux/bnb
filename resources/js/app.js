@@ -11,6 +11,7 @@ import Success from "./shared/components/Success";
 import ValidationErrors from "./shared/components/ValidationErrors";
 import Vue from "vue";
 import storeDefination from "./store";
+import CheckButton from "./shared/components/CheckButton";
 
 window.Vue = require('vue');
 Vue.use(VueRouter);
@@ -21,6 +22,7 @@ Vue.component("star-rating", StarRating);
 Vue.component("fatal-error", FatalError);
 Vue.component("success", Success);
 Vue.component("v-errors", ValidationErrors);
+Vue.component("check-button", CheckButton);
 
 const store = new Vuex.Store(storeDefination);
 

@@ -38,14 +38,7 @@
                 <v-errors :errors="errorFor('to')"></v-errors>
             </div>
         </div>
-
-        <button
-            class="btn btn-secondary btn-block"
-            @click="check"
-            :disabled="loading"
-        >
-            Check!
-        </button>
+        <check-button :loading="loading" @check="check">Check!</check-button>
     </div>
 </template>
 
@@ -89,7 +82,7 @@ export default {
                     }
                     this.status = error.response.status;
                 })
-                .then(() => (this.loading = false));
+                .then(() =>  (this.loading = false));
         }
     },
     computed: {
