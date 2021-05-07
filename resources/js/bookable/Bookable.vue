@@ -18,8 +18,16 @@
 
         </div>
         <div class="col-md-4 pb-4">
-            <availability :bookable-id="this.$route.params.id" @availability="checkPrice($event)">
+            <availability :bookable-id="this.$route.params.id" @availability="checkPrice($event)" class="mb-4">
             </availability>
+
+            <transition name="fade">
+                <div v-if="price">
+                    <price-breakdown :price="this.price" class="mb-4"></price-breakdown>
+                    <button class="btn btn-outline-secondary btn-block" >Book now</button>
+                </div>
+
+            </transition>
         </div>
     </div>
 </template>
@@ -27,12 +35,14 @@
 <script>
 import availability from "./Availability";
 import ReviewList from "./ReviewList";
+import PriceBreakdown from "./PriceBreakdown";
 import { mapState } from "vuex";
 
 export default {
     components: {
         availability,
-        ReviewList
+        ReviewList,
+        PriceBreakdown
     },
     computed:mapState({
         lastSearch: "lastSearch"
@@ -67,6 +77,7 @@ export default {
         return {
             bookable: null,
             loading: false,
+            price: null
         }
     },
 }

@@ -36,8 +36,6 @@ class BookablePriceController extends Controller
                 'total' => $price,
                 'breakdown' => [
                     $bookable->price => $days,
-                    'price' => $bookable->price,
-                    'days' => $days,
                 ]
             ]
         ]);
